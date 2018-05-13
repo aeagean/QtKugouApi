@@ -25,15 +25,18 @@ public:
 
     /* 获取歌曲音乐详情信息: http://m.kugou.com/app/i/getSongInfo.php?cmd=playInfo&hash={value}
      * slot type: void function(QVariantMap result)
+     * @ id: song hash
      */
     void getMusic(const QString &id, const QObject *receiver, const char *slot);
 
 private slots:
     void onSearchMusics(QVariantMap result);
+    void onGetMusic(QVariantMap musicInfo);
     void testNetworkRequestInfo(QNetworkReply *reply);
 
 signals:
     void searchMusicsChanged(QList<QVariantMap> result);
+    void getMusicChanged(QVariantMap musicInfo);
 
 private:
     HttpService m_httpService;

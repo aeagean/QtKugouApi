@@ -32,22 +32,41 @@ void WebApi::searchMusics(const QString &musicName, const QObject *receiver, con
 
 void WebApi::getMusic(const QString &id, const QObject *receiver, const char *slot)
 {
-
+    connect(this, SIGNAL(searchMusicsChanged(QList<QVariantMap>)), receiver, slot, Qt::UniqueConnection);
+    m_httpService.get("http://m.kugou.com/app/i/getSongInfo.php")
+                 .queryParam("cmd", "playInfo")
+                 .queryParam("hash", id)
+                 .onResponse(this, SLOT(onGetMusic(QVariantMap)))
+                 .exec();
 }
 
 void WebApi::onSearchMusics(QVariantMap result)
 {
-//    Printf_Map(result);
+    // Printf_Map(result);
     /* field: root(object) -> "data"(object) -> "info"(list) */
-    QVariantMap data = result.value("data").toMap();
-    QList<QVariant> infos = data.value("info").toList();
     QList<QVariantMap> convertedResults;
+    QVariantMap data;
+    QList<QVariant> infos;
+
+    if (!result.isEmpty())
+        data = result.value("data").toMap();
+
+    if (!data.isEmpty())
+        infos = data.value("info").toList();
 
     foreach (QVariant each, infos) {
         convertedResults.append(each.toMap());
     }
 
+    getMusic(convertedResults.at(0).value("hash").toString(), NULL, "");
+
     emit searchMusicsChanged(convertedResults);
+}
+
+void WebApi::onGetMusic(QVariantMap musicInfo)
+{
+    Printf_Map(musicInfo);
+    emit getMusicChanged(musicInfo);
 }
 
 void WebApi::testNetworkRequestInfo(QNetworkReply *reply)
