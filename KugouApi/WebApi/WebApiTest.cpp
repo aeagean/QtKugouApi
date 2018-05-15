@@ -3,6 +3,9 @@
 
 WebApiTest::WebApiTest()
 {
+    m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::StreamPlayback);
+    m_buffer = new QBuffer(this);
+    m_buffer->open(QIODevice::ReadWrite);
     m_webApi.searchMusics("aa",
                           this, SLOT(songInfosChanged(QList<QVariantMap>)),
                           this, SLOT(errorChanged(QString)));
@@ -30,6 +33,8 @@ void WebApiTest::songInfoChanged(QVariantMap songInfo)
                           .onResponse(this, SLOT(songMp3DataChanged(QByteArray)))
                           .onError(this, SLOT(errorChanged(QString)))
                           .exec();
+
+
 }
 
 void WebApiTest::errorChanged(QString errorString)
@@ -40,5 +45,9 @@ void WebApiTest::errorChanged(QString errorString)
 
 void WebApiTest::songMp3DataChanged(QByteArray data)
 {
-    qDebug()<<data;
+    m_buffer->seek(0);
+    m_buffer->write(data);
+    m_buffer->seek(0);
+    m_mediaPlayer->setMedia(QMediaContent(), m_buffer);
+    m_mediaPlayer->play();
 }

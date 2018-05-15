@@ -2,6 +2,8 @@
 #define WEBAPITEST_H
 
 #include "WebApi.h"
+#include <QMediaPlayer>
+#include <QBuffer>
 
 class WebApiTest : public QObject
 {
@@ -21,6 +23,8 @@ private:
     QVariantMap m_songInfo;
     QString m_id; /* song*/
     QString m_errorString;
+    QMediaPlayer *m_mediaPlayer;
+    QBuffer *m_buffer;
 };
 
 #endif // WEBAPITEST_H
