@@ -33,7 +33,7 @@ void WebApi::searchMusics(const QString &musicName,
                  .queryParam("showtype", 1)
                  .onResponse(this, SLOT(onSearchMusics(QVariantMap)))
                  .onError(errorReceiver, errorSlot)
-                 .exec();
+                 .exec()->abort();
 }
 
 void WebApi::getMusic(const QString &id, const QObject *receiver, const char *slot, const QObject *errorReceiver, const char *errorSlot)

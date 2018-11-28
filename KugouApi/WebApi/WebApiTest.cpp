@@ -9,6 +9,13 @@ WebApiTest::WebApiTest()
     m_webApi.searchMusics("aa",
                           this, SLOT(songInfosChanged(QList<QVariantMap>)),
                           this, SLOT(errorChanged(QString)));
+
+}
+
+void WebApiTest::test()
+{
+    static HttpService http;
+    http.get("");
 }
 
 void WebApiTest::songInfosChanged(QList<QVariantMap> songInfos)
@@ -33,7 +40,6 @@ void WebApiTest::songInfoChanged(QVariantMap songInfo)
                           .onResponse(this, SLOT(songMp3DataChanged(QByteArray)))
                           .onError(this, SLOT(errorChanged(QString)))
                           .exec();
-
 
 }
 

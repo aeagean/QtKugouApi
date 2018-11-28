@@ -1,4 +1,4 @@
 TEMPLATE = subdirs
 
-SUBDIRS += QtNetwork KugouApi
+SUBDIRS += QtNetworkService KugouApi
 CONFIG += ordered

@@ -11,6 +11,8 @@ class WebApiTest : public QObject
 public:
     WebApiTest();
 
+    void test();
+
 private slots:
     void songInfosChanged(QList<QVariantMap> songInfos);
     void songInfoChanged(QVariantMap songInfo);

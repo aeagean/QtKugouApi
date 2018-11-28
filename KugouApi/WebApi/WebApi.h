@@ -2,6 +2,8 @@
 #define WEBAPI_H
 
 #include "HttpService.h"
+#include "NetworkDownloadFile.h"
+
 #include <QFileInfo>
 
 class WebApi : public QObject
@@ -56,6 +58,7 @@ signals:
 
 private:
     HttpService m_httpService;
+    NetworkDownloadFile m_networkDownloadFile;
     QFileInfo m_fileInfo;
 };
 
