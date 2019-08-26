@@ -7,6 +7,6 @@ https://github.com/aeagean/QtNetworkService.git
 ## 更多请关注微信公众号
 <p align="center">
   <img src="http://www.qtbig.com/about/index/my_qrcode.jpg" alt="微信公众号:你才小学生">
-  <p align="center"><em>你才小学生(nicaixiaoxuesheng)</em></p>
+  <p align="center"><em>扫一扫关注</em></p>
 </p>
 
